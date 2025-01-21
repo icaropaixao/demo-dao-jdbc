@@ -17,16 +17,12 @@ import java.util.Date;
 public class Program {
     public static void main(String[] args) {
 
-        Department department = new Department(1,"Books");
-
-        Seller seller = new Seller("Icaro",1,10.0,"email",new Date());
-
-        System.out.println(seller);
-        System.out.println(department);
-
-
         // exemplo usando a classe FactoryDao para criar os Daos sem usar um (new etc etc etc)
         SellerDao sellerDao = DaoFactory.createSellerDao();
+
+        Seller seller = sellerDao.findById(3);
+
+        System.out.println(seller);
 
 
 
