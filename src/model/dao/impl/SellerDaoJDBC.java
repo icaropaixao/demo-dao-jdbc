@@ -3,12 +3,34 @@ package model.dao.impl;
 import model.dao.SellerDao;
 import model.entities.Seller;
 
+import java.util.List;
+
+// IMPL (IMPLEMENTAÇÃO dos metodos)
 public class SellerDaoJDBC implements SellerDao {
 
-    public void insert(Seller seller) {
+    @Override
+    public void insert(Seller obj) {
 
     }
-    public void upadte(Seller seller) {
+
+    @Override
+    public void update(Seller obj) {
 
     }
+
+    @Override
+    public void deleteById(Integer id) {
+
+    }
+
+    @Override
+    public Seller findById(Integer id) {
+        return null;
+    }
+
+    @Override
+    public List<Seller> findAll() {
+        return List.of();
+    }
+
 }

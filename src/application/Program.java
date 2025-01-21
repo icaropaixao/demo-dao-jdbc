@@ -1,6 +1,8 @@
 package application;
 
 import db.DB;
+import model.dao.DaoFactory;
+import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
 
@@ -21,6 +23,11 @@ public class Program {
 
         System.out.println(seller);
         System.out.println(department);
+
+
+        // exemplo usando a classe FactoryDao para criar os Daos sem usar um (new etc etc etc)
+        SellerDao sellerDao = DaoFactory.createSellerDao();
+
 
 
     }

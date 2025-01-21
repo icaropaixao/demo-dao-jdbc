@@ -6,7 +6,7 @@ import model.entities.Department;
 import java.util.List;
 
 //CLASSE PARA LIDAR COM A PARTE DE BANCO DE DADOS
-public class DepartmentDao {
+public interface DepartmentDao {
 
     void insert(Department obj); // inserir um departamento
     void update(Department obj); // atualizar um departamento

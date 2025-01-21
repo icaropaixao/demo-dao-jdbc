@@ -1,0 +1,29 @@
+[33mcommit c82a5f19e229c64c50666910072eedeb646b0b0b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: icaropaixao <106492577+icaropaixao@users.noreply.github.com>
+Date:   Tue Jan 21 17:44:49 2025 -0300
+
+    Create interface DepartmentDao and SellerDao and DaoFactory
+
+[33mcommit c58f22d20713adfbf9bd638439651abcd4288162[m
+Author: icaropaixao <106492577+icaropaixao@users.noreply.github.com>
+Date:   Tue Jan 21 17:10:13 2025 -0300
+
+    Create Interface DepartmentDao and SellerDao
+
+[33mcommit 09b91d2d8915819a8cc0152eec2568ba54e1f9b2[m
+Author: icaropaixao <106492577+icaropaixao@users.noreply.github.com>
+Date:   Mon Jan 20 19:36:43 2025 -0300
+
+    Seller Class
+
+[33mcommit 28eebb408b80f96d919c21bb13ea3b281591cfd4[m
+Author: icaropaixao <106492577+icaropaixao@users.noreply.github.com>
+Date:   Mon Jan 20 18:42:12 2025 -0300
+
+    Department entitie Class
+
+[33mcommit 9e0365566edc58edde92d195818e8ff13d8d8350[m
+Author: icaropaixao <106492577+icaropaixao@users.noreply.github.com>
+Date:   Mon Jan 20 18:15:25 2025 -0300
+
+    Create Dao project and repository
