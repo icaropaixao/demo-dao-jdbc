@@ -24,12 +24,12 @@ public class SellerDaoJDBC implements SellerDao {
 
     // Implementações
     @Override
-    public void insert(Seller obj) {
+    public void insert(Seller seller) {
 
     }
 
     @Override
-    public void update(Seller obj) {
+    public void update(Seller seller) {
 
     }
 
@@ -59,19 +59,9 @@ public class SellerDaoJDBC implements SellerDao {
 
             // Testando se a consulta ao banco de dados retornou algum resultado
             if(rs.next()) { // Se houver pelo menos uma linha no resultado da consulta...
-                Department dep = new Department();
-                dep.setId(rs.getInt("DepartmentId")); // coluna dentro do MySQL que será pesquisada
-                dep.setName(rs.getString("DepName")); // colunas detro do MySQL
-
-                Seller obj = new Seller();
-                obj.setId(rs.getInt("Id"));
-                obj.setName(rs.getString("Name"));
-                obj.setEmail(rs.getString("Email"));
-                obj.setBaseSalary(rs.getDouble("BaseSalary"));
-                obj.setBirthDate(rs.getDate("birthDate"));
-                obj.setDepartment(dep);
-
-                return obj;
+                Department department = instantieteDepartment(rs);
+                Seller seller = instantieteSeller(rs,department);
+                return seller;
             }
             return null;
         }
@@ -87,9 +77,36 @@ public class SellerDaoJDBC implements SellerDao {
 
     }
 
+
     @Override
     public List<Seller> findAll() {
         return List.of();
     }
+
+
+
+    // INSTANCIANDO UM DEPARTAMENTO E UM SELLER
+    private Department instantieteDepartment(ResultSet rs)  throws SQLException {
+        
+        Department department = new Department();
+        department.setId(rs.getInt("DepartmentId")); // coluna dentro do MySQL que será pesquisada
+        department.setName(rs.getString("DepName")); // colunas detro do MySQL
+
+        return department;
+    }
+    private Seller instantieteSeller(ResultSet rs, Department department) throws SQLException {
+        Seller seller = new Seller();
+
+        seller.setId(rs.getInt("Id"));
+        seller.setName(rs.getString("Name"));
+        seller.setEmail(rs.getString("Email"));
+        seller.setBaseSalary(rs.getDouble("BaseSalary"));
+        seller.setBirthDate(rs.getDate("birthDate"));
+        seller.setDepartment(department);
+
+        return seller;
+        
+    }
+    
 
 }

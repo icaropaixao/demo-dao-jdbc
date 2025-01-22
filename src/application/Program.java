@@ -20,6 +20,7 @@ public class Program {
         // exemplo usando a classe FactoryDao para criar os Daos sem usar um (new etc etc etc)
         SellerDao sellerDao = DaoFactory.createSellerDao();
 
+        System.out.println("=== Teste 1: Seller findById ===");
         Seller seller = sellerDao.findById(3);
 
         System.out.println(seller);
