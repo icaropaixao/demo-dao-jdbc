@@ -50,6 +50,12 @@ public class Program {
         System.out.println("Inserido com sucesso! ID: " + newSeller.getId());
 
 
+        System.out.println("\n === Teste 5: Seller Update  ===");
+        seller = sellerDao.findById(3);
+        seller.setName("Alex Grey Reis");
+        sellerDao.update(seller);
+        System.out.println("Atualizado com sucesso! ID: " + seller.getId());
+
 
     }
 }
