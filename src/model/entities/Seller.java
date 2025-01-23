@@ -21,7 +21,7 @@ public class Seller implements Serializable {
     public Seller(){
 
     }
-    public Seller(String name, Integer id, Double baseSalary, String email, Date birthDate) {
+    public Seller(String name, Integer id, Double baseSalary, String email, Date birthDate,Department department) {
         this.name = name;
         this.id = id;
         this.baseSalary = baseSalary;
