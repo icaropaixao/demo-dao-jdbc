@@ -55,7 +55,7 @@ public class SellerDaoJDBC implements SellerDao {
 
 
             st.setInt(1,id);
-            rs = st.executeQuery();
+            rs = st.executeQuery(); // Resultado da execução das linhas SQL sendo armazenado aqui
 
 
             // Testando se a consulta ao banco de dados retornou algum resultado
@@ -81,7 +81,50 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public List<Seller> findAll() {
-        return List.of();
+        PreparedStatement  st = null;
+        ResultSet rs = null;
+
+        try{
+            st = conn.prepareStatement(
+
+                    "SELECT seller.*,department.Name as DepName "
+                            +"FROM seller INNER JOIN department "
+                            +"ON seller.DepartmentId = department.Id "
+                            +"ORDER BY Name ");
+
+
+            rs = st.executeQuery();
+
+            List<Seller> list = new ArrayList<>();
+
+            // Mapa para armazenar objetos Department já criados, evitando duplicação
+            Map<Integer, Department> map = new HashMap<>();
+
+            while (rs.next()){
+
+                // verificação se o dep ja existe
+                Department dep = map.get(rs.getInt("DepartmentId"));
+
+                if (dep == null) {
+                    dep = instantieteDepartment(rs);
+                    map.put(rs.getInt("DepartmentId"),dep);
+                }
+
+                Seller seller = instantieteSeller(rs,dep);
+                list.add(seller);
+
+            }
+            return list;
+        }
+        catch(SQLException e){
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+            // não precisa fechar a conexão pois pode-se fazer uma nova pesquisa depois
+            // deixa para fechar no programa principal
+        }
     }
 
     @Override

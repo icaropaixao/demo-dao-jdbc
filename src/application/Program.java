@@ -35,6 +35,14 @@ public class Program {
             System.out.println(s);
         }
 
+        System.out.println("\n=== Teste 3: Seller findAll ===");
+        list = sellerDao.findAll();
+
+        for (Seller s : list) {// Percorre a lista de vendedores retornada e imprime as informações de cada vendedor
+            // Imprime as informações do vendedor
+            System.out.println(s);
+        }
+
 
 
 
