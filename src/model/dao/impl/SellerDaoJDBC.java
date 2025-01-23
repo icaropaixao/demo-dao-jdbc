@@ -15,7 +15,6 @@ import java.util.Map;
 // IMPL (IMPLEMENTAÇÃO dos metodos)
 public class SellerDaoJDBC implements SellerDao {
 
-
     // Conexaão com o banco MySQL
     private Connection conn;
 
