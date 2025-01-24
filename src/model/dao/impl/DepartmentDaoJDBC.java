@@ -1,11 +1,11 @@
 package model.dao.impl;
 
+import db.DB;
+import db.DbException;
 import model.dao.DepartmentDao;
 import model.entities.Department;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class DepartmentDaoJDBC implements DepartmentDao {
@@ -16,8 +16,44 @@ public class DepartmentDaoJDBC implements DepartmentDao {
     }
 
     @Override
-    public void insert(Department obj) {
+    public void insert(Department department) {
 
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try{
+            // codigo SQL
+            st = conn.prepareStatement(
+                    "INSERT INTO department "
+                      + "(Id, Name) "
+                      + "VALUES "
+                      + "(?, ?)",
+                      Statement.RETURN_GENERATED_KEYS);
+
+
+            st.setInt(1,department.getId());
+            st.setString(2,department.getName());
+
+            int rowsAffected = st.executeUpdate();
+
+            if (rowsAffected > 0) {
+                rs = st.getGeneratedKeys();
+                if (rs.next()) {
+                    int id = rs.getInt(1);
+                    department.setId(id);
+                }
+            }
+            else {
+                throw new DbException("Inserção falhou ao registrar");
+            }
+
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+        }
 
     }
 
