@@ -4,6 +4,7 @@ import db.DB;
 import db.DbException;
 import model.dao.DepartmentDao;
 import model.entities.Department;
+import model.entities.Seller;
 
 import java.sql.*;
 import java.util.List;
@@ -60,7 +61,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
     @Override
     public void deleteById(Integer id) {
         PreparedStatement st = null;
-        ResultSet rs = null;
+
 
         try{
             // codigo SQL
@@ -82,15 +83,59 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
 
     @Override
-    public void update(Department obj) {
+    public void update(Department department) {
+
+        PreparedStatement st = null;
+
+        try{
+            st = conn.prepareStatement(
+
+                    "UPDATE department "
+                       +"SET  Name = ? "
+                       +"WHERE Id = ? ");
+
+
+            st.setNString(1,department.getName());
+            st.setInt(2,department.getId());
+
+            st.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+        finally{
+            DB.closeStatement(st);
+        }
 
     }
 
 
     @Override
     public Department findById(Integer id) {
-        return null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            st = conn.prepareStatement(
+                    "SELECT Id, Name FROM department WHERE Id = ?"
+            );
+            st.setInt(1, id);
+            rs = st.executeQuery();
+
+            if (rs.next()) {
+                // Cria e retorna o departamento a partir dos dados obtidos do ResultSet
+                Department department = instantieteDepartment(rs);
+                return department;
+            }
+            return null; // Se não encontrar nenhum departamento, retorna null
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
+
 
     @Override
     public List<Department> findAll() {
@@ -101,8 +146,8 @@ public class DepartmentDaoJDBC implements DepartmentDao {
     private Department instantieteDepartment(ResultSet rs) throws SQLException {
 
         Department department = new Department();
-        department.setId(rs.getInt("DepartmentId")); // coluna dentro do MySQL que será pesquisada
-        department.setName(rs.getString("DepName")); // colunas detro do MySQL
+        department.setId(rs.getInt("Id")); // coluna dentro do MySQL que será pesquisada
+        department.setName(rs.getString("Name")); // colunas detro do MySQL
 
         return department;
     }
