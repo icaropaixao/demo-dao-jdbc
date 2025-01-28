@@ -5,6 +5,7 @@ import model.dao.DepartmentDao;
 import model.entities.Department;
 import model.entities.Seller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,25 +26,32 @@ public class Program2 {
             System.out.println("Departamento não encontrado.");
         }
 
-        System.out.println("=== Teste 2: Insert Department === ");
-        Department dep = new Department(5, "Logistics");
+        System.out.println("\n=== Teste 2: Insert Department === ");
+        Department dep = new Department(7, "Logistics");
         departmentDao.insert(dep);
         System.out.println("Inserido com sucesso! ID: " + dep.getId());
 
-        System.out.println("=== Teste 3: Delete Department === ");
+        System.out.println("\n=== Teste 3: Delete Department === ");
         System.out.println("Digite o ID que deseja excluir: ");
         int id = sc.nextInt();
         departmentDao.deleteById(id);
         System.out.println("Deletado com sucesso! ID: " + id);
 
 
-        System.out.println("=== Teste 4: Update Department === ");
+        System.out.println("\n=== Teste 4: Update Department === ");
         department = departmentDao.findById(3);
         department.setName("Cientistas");
         departmentDao.update(department);
         System.out.println("Atualizado com sucesso! ID: " + department.getId());
 
 
+        System.out.println("\n=== Teste 5: Department findAll ===");
+        List<Department> departments = departmentDao.findAll();
+        departments = departmentDao.findAll();
+        for (Department s : departments) {
 
+            System.out.println(s);
+
+        }
     }
 }

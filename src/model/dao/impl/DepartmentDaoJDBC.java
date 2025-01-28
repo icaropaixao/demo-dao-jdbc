@@ -7,6 +7,7 @@ import model.entities.Department;
 import model.entities.Seller;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentDaoJDBC implements DepartmentDao {
@@ -139,7 +140,41 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
     @Override
     public List<Department> findAll() {
-        return List.of();
+            List<Department> departments = new ArrayList<>(); // Lista para armazenar os departamentos
+            PreparedStatement st = null;
+            ResultSet rs = null;
+
+            try {
+                st = conn.prepareStatement("SELECT * FROM department "); // Consulta SQL
+                rs = st.executeQuery(); // Executa a consulta
+
+                // Processa os resultados
+                while (rs.next()) {
+                    int id = rs.getInt("id"); // Obtém o ID do departamento
+                    String name = rs.getString("name"); // Obtém o nome do departamento
+
+                    // Cria um objeto Department e adiciona à lista
+                    Department department = new Department(id, name);
+                    departments.add(department);
+                }
+            }
+            catch (SQLException e) {
+                throw new DbException(e.getMessage());
+
+            }
+            finally {
+
+                try {
+                    if (rs != null) rs.close();
+                    if (st != null) st.close();
+                } catch (SQLException e) {
+                    throw new DbException(e.getMessage());
+                }
+            }
+
+            // Retorna a lista de departamentos (pode estar vazia se não houver resultados)
+            return departments.isEmpty() ? List.of() : departments;
+
     }
 
 
